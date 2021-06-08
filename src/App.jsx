@@ -1,32 +1,31 @@
-import React from 'react';
+import React from "react";
 
-import AppLoading from './components/AppLoading';
-import Header from './components/Header';
-import SideNavLeft from './components/SideNavLeft';
-import SideNavRight from './components/SideNavRight';
-import Posts from './components/Posts';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+// Screens
+import Home from "./screens/Home";
+import Login from "./screens/Login";
+import Exercises from "./screens/Exercises";
+import Challenge from "./screens/Challenge";
 
 class App extends React.Component {
   render() {
     return (
-      <div className="app">
-        <Header />
-        
-        <div className="container">
-          <div className="row">
-            <SideNavLeft />
-
-            <main className="col-8">
-              <Posts />
-            </main>
-
-            <SideNavRight />
-          </div>
+      <Router>
+        <div className="app h-100">
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route exact path="/challenge">
+              <Challenge />
+            </Route>
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/exercises" component={Exercises} />
+          </Switch>
         </div>
-
-        <AppLoading />
-      </div>
-    )
+      </Router>
+    );
   }
 }
 
