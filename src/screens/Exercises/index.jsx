@@ -1,158 +1,83 @@
-import React, { useState } from "react";
-import Pet from "../../components/Pet";
-// export default function Exercises() {
-//   const [USD, setUSD] = useState(null);
-//   const [MXN, setMXN] = useState(null);
-
-//   return (
-//     <div className="container h-100">
-//       <div className="row h-100 justify-content-center align-items-center">
-//         <div className="d-flex col-10 col-md-6 bg-dark rounded h-50 align-items-center px-0">
-//           <div className="col p-5">
-//             <form>
-//               <div className="form-group col-12">
-//                 <label className="text-white" htmlFor="USDInput">
-//                   USD
-//                 </label>
-//                 <input
-//                   type="number"
-//                   className="form-control"
-//                   id="USDInput"
-//                   aria-describedby="emailHelp"
-//                   placeholder="Enter USD"
-//                   value={Number(USD)}
-//                   onChange={(event) => {
-//                     setUSD(event.target.value);
-//                     setMXN((event.target.value * 19.84).toFixed(2));
-//                   }}
-//                 />
-//               </div>
-//               <div className="form-group col-12">
-//                 <label className="text-white" htmlFor="MXNInput">
-//                   MXN
-//                 </label>
-//                 <input
-//                   type="number"
-//                   className="form-control"
-//                   id="MXNInput"
-//                   placeholder="Enter MXN"
-//                   value={Number(MXN)}
-//                   onChange={({ target: { value } }) => {
-//                     setUSD((value / 19.84).toFixed(2));
-//                     setMXN(value);
-//                   }}
-//                 />
-//               </div>
-//             </form>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-// const petsData = [
-//   {
-//     name: "Sr. Peabody",
-//     age: "5",
-//   },
-//   {
-//     name: "Misifu",
-//     age: "1",
-//   },
-//   {
-//     name: "Solovino",
-//     age: "10",
-//   },
-//   {
-//     name: "Nefermishi",
-//     age: "5",
-//   },
-// ];
-
-// export default function Exercises() {
-//   const buildLIPets = ({ name, age }, index) => (
-//     <li key={index} className="list-group-item">
-//       Name: {name}, age: {age}
-//     </li>
-//   );
-
-//   const petsUI = petsData.map(({ name, age }, index) => (
-// <li key={index} className="list-group-item">
-//   Name: {name}, age: {age}
-// </li>
-//   ));
-
-//   return (
-//     <div className="container">
-//       <div className="row justify-content-center">
-//         <div className="col">
-//           <div className="card" style={{ width: "18rem" }}>
-//             <div className="card-header">Pets</div>
-//             <ul className="list-group list-group-flush">
-//               {petsData.map(buildLIPets)}
-//             </ul>
-//             <div className="card-header">Pets</div>
-//             <ul className="list-group list-group-flush">{petsUI}</ul>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-const petsData = {
-  dogs: [
-    {
-      name: "Sr. Peabody",
-      age: "5",
-    },
-    {
-      name: "Solovino",
-      age: "10",
-    },
-  ],
-  cats: [
-    {
-      name: "Misifu",
-      age: "1",
-    },
-    {
-      name: "Nefermishi",
-      age: "5",
-    },
-  ],
-  parrots: [
-    {
-      name: "Garzilazo",
-      age: "1",
-    },
-    {
-      name: "Pancho",
-      age: "5",
-    },
-  ],
-};
+import React, { useEffect, useState } from "react";
 
 export default function Exercises() {
-  const buildPetType = ([type, pets], index) => (
-    <React.Fragment key={index}>
-      <div className="card-header">{type}</div>
-      <ul className="list-group list-group-flush">
-        {pets.map((pet, index) => (
-          <Pet pet={pet} key={index} index={index} />
-        ))}
-      </ul>
-    </React.Fragment>
+  const [characters, setCharacters] = useState([]);
+  const [prev, setPrev] = useState(null);
+  const [next, setNext] = useState(null);
+
+  useEffect(() => {
+    fetch("https://rickandmortyapi.com/api/character")
+      .then((response) => response.json())
+      .then((json) => {
+        setCharacters(json.results);
+        setPrev(json.info.prev);
+        setNext(json.info.next);
+      });
+  }, []);
+
+  const buildCard = ({ id, name, image }) => (
+    <div key={id} className="col justify-content-center d-flex">
+      <div className="card" style={{ width: "18rem" }}>
+        <img className="card-img-top" src={image} alt="Card image cap" />
+        <div className="card-body">
+          <h5 className="card-title">{name}</h5>
+          <p className="card-text">
+            Some quick example text to build on the card title and make up the
+            bulk of the card's content.
+          </p>
+          <a href="#" className="btn btn-primary">
+            Go somewhere
+          </a>
+        </div>
+      </div>
+    </div>
   );
+
+  const getNextPage = () => {
+    fetch(next)
+      .then((response) => response.json())
+      .then((json) => {
+        setCharacters(json.results);
+        setPrev(json.info.prev);
+        setNext(json.info.next);
+      });
+  };
+
+  const getPrevPage = () => {
+    fetch(prev)
+      .then((response) => response.json())
+      .then((json) => {
+        setCharacters(json.results);
+        setPrev(json.info.prev);
+        setNext(json.info.next);
+      });
+  };
 
   return (
     <div className="container">
-      <div className="row justify-content-center">
-        <div className="col">
-          <div className="card" style={{ width: "18rem" }}>
-            {Object.entries(petsData).map(buildPetType)}
-          </div>
+      <div className="row">
+        <div className="col justify-content-center d-flex flex-wrap">
+          {characters.map(buildCard)}
+        </div>
+      </div>
+      <div className="row">
+        <div className="col justify-content-center d-flex flex-wrap p-5">
+          <button
+            disabled={prev === null ? true : false}
+            type="button"
+            className="btn btn-dark btn-lg mx-3"
+            onClick={getPrevPage}
+          >
+            Prev
+          </button>
+          <button
+            disabled={next === null ? true : false}
+            type="button"
+            className="btn btn-dark btn-lg mx-3"
+            onClick={getNextPage}
+          >
+            Next
+          </button>
         </div>
       </div>
     </div>
