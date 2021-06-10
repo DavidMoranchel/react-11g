@@ -113,65 +113,133 @@
 //   );
 // }
 
+// import React, { useState } from "react";
+
+// export default function Excercises() {
+//   const [cardNumber, setCardNum] = useState(0);
+//   const [name, setName] = useState("");
+//   const [date, setDate] = useState("");
+//   const [cvc, setCvc] = useState("");
+
+//   return (
+//     <div className="container h-100">
+//       <div className="row h-100 justify-content-center align-items-center">
+//         <div className="d-flex flex-column justify-content-between col-10 col-md-6 bg-secondary rounded h-50 align-items-center px-0">
+//           <div className="">
+//             <h1>VISA</h1>
+//           </div>
+//           <div className="">
+//             <h4>{cardNumber}</h4>
+//             <h4>{name}</h4>
+//           </div>
+//           <div className="">
+//             <h4>{date}</h4>
+//             <h4>{cvc}</h4>
+//           </div>
+//         </div>
+//       </div>
+//       <input
+//         type="number"
+//         placeholder="Card Number"
+//         value={cardNumber}
+//         onChange={(event) => {
+//           setCardNum(event.target.value);
+//         }}
+//       ></input>
+//       <input
+//         type="text"
+//         placeholder="Name"
+//         value={name}
+//         onChange={(event) => {
+//           setName(event.target.value);
+//         }}
+//       ></input>
+
+//       <input
+//         type="text"
+//         placeholder="Valid thru"
+//         value={date}
+//         onChange={(event) => {
+//           setDate(event.target.value);
+//         }}
+//       ></input>
+
+//       <input
+//         type="text"
+//         placeholder="CVC"
+//         value={cvc}
+//         onChange={(event) => {
+//           setCvc(event.target.value);
+//         }}
+//       ></input>
+//     </div>
+//   );
+// }
+
 import React, { useState } from "react";
 
+const petsData = {
+  dogs: [
+    {
+      name: "Sr. Peabody",
+      age: "5",
+    },
+    {
+      name: "Solovino",
+      age: "10",
+    },
+  ],
+  cats: [
+    {
+      name: "Misifu",
+      age: "1",
+    },
+    {
+      name: "Nefermishi",
+      age: "5",
+    },
+  ],
+};
+
 export default function Excercises() {
-  const [cardNumber, setCardNum] = useState(0);
-  const [name, setName] = useState("");
-  const [date, setDate] = useState("");
-  const [cvc, setCvc] = useState("");
+  // const petsUI = petsData.map(({ name, age }, index) => (
+  //   <li key={index} className="list-group-item">
+  //     Name: {name}, age: {age}
+  //   </li>
+  // ));
+
+  const petKey = Object.entries(petsData);
+
+  // const petsToPrint = petKey.map(({ pet }, index) =>
+  //   // <li key={index} className="list-group-item">
+  //   //   Name: {name}, age: {age}
+  //   // </li>
+  //   console.log(pet)
+  // );
+
+  const petsToPrint = petKey.map((animal) => {
+    const animalObject = animal.map(([element, { name, age }], index) => {
+      const elementToPrint = element;
+
+      return elementToPrint;
+      // <li key={index} className="list-group-item">
+      //   Name: {name}, age: {age}
+      // </li>;
+    });
+  });
+
+  console.log(petsToPrint);
 
   return (
-    <div className="container h-100">
-      <div className="row h-100 justify-content-center align-items-center">
-        <div className="d-flex flex-column justify-content-between col-10 col-md-6 bg-secondary rounded h-50 align-items-center px-0">
-          <div className="">
-            <h1>VISA</h1>
-          </div>
-          <div className="">
-            <h4>{cardNumber}</h4>
-            <h4>{name}</h4>
-          </div>
-          <div className="">
-            <h4>{date}</h4>
-            <h4>{cvc}</h4>
+    <div className="container">
+      <div className="row justify-content-center">
+        <div className="col">
+          <div className="card" style={{ width: "18rem" }}>
+            <div className="card-header">Pets</div>
+            <ul className="list-group list-group-flush">{petsToPrint}</ul>
           </div>
         </div>
       </div>
-      <input
-        type="number"
-        placeholder="Card Number"
-        value={cardNumber}
-        onChange={(event) => {
-          setCardNum(event.target.value);
-        }}
-      ></input>
-      <input
-        type="text"
-        placeholder="Name"
-        value={name}
-        onChange={(event) => {
-          setName(event.target.value);
-        }}
-      ></input>
-
-      <input
-        type="text"
-        placeholder="Valid thru"
-        value={date}
-        onChange={(event) => {
-          setDate(event.target.value);
-        }}
-      ></input>
-
-      <input
-        type="text"
-        placeholder="CVC"
-        value={cvc}
-        onChange={(event) => {
-          setCvc(event.target.value);
-        }}
-      ></input>
     </div>
   );
 }
