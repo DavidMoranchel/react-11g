@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 // Screens
 import Home from "./screens/Home";
+import PostDetail from "./screens/PostDetail";
 import AddPost from "./screens/AddPost";
 import Login from "./screens/Login";
 
@@ -15,6 +16,9 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/">
               <Home />
+            </Route>
+            <Route exact path="/posts/:id">
+              <PostDetail />
             </Route>
             <Route exact path="/createPost">
               <AddPost />
