@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 
-import { useHistory, useParams } from "react-router";
+import { useParams } from "react-router";
 
 import Header from "../../components/Header";
 import AppLoading from "../../components/AppLoading";
 
 export default function PostDetail() {
   const [data, setData] = useState({});
-  const history = useHistory();
+
   const { id } = useParams();
 
   useEffect(() => {
