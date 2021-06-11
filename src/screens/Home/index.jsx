@@ -10,7 +10,7 @@ export default function Home() {
   const [data, setData] = useState({});
 
   useEffect(() => {
-    fetch("https://rickandmortyapi.com/api/character")
+    fetch("https://react-11g-default-rtdb.firebaseio.com/posts.json")
       .then((response) => response.json())
       .then((json) => setData(json));
   }, []);
@@ -24,7 +24,9 @@ export default function Home() {
         <div className="row">
           <SideNavLeft />
           <main className="col-8">
-            <Posts data={data.results ? data.results : []} />
+            <Posts
+              data={Object.entries(data).length ? Object.entries(data) : []}
+            />
           </main>
           <SideNavRight />
         </div>
@@ -33,13 +35,3 @@ export default function Home() {
     </React.Fragment>
   );
 }
-
-// const getCharacters = async () => {
-//   const response = await fetch("https://rickandmortyapi.com/api/character")
-//   const data = await response.json()
-//   return data
-// }
-
-// fetch("https://rickandmortyapi.com/api/character?page=2")
-//   .then((response) => response.json())
-//   .then((data) => console.log(data));

@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from "react";
 
 export default function Exercises() {
-  const [characters, setCharacters] = useState([]);
-  const [prev, setPrev] = useState(null);
-  const [next, setNext] = useState(null);
+  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    fetch("https://rickandmortyapi.com/api/character")
+    fetch("https://react-11g-default-rtdb.firebaseio.com/posts.json")
       .then((response) => response.json())
-      .then((json) => {
-        setCharacters(json.results);
-        setPrev(json.info.prev);
-        setNext(json.info.next);
-      });
+      .then((json) => console.log(json));
+
+    // fetch("https://react-11g-default-rtdb.firebaseio.com/.json")
+    //   .then((response) => response.json())
+    //   .catch((error) => console.log(error))
+    //   .then((json) => console.log(json));
   }, []);
 
   const buildCard = ({ id, name, image }) => (
@@ -33,51 +32,11 @@ export default function Exercises() {
     </div>
   );
 
-  const getNextPage = () => {
-    fetch(next)
-      .then((response) => response.json())
-      .then((json) => {
-        setCharacters(json.results);
-        setPrev(json.info.prev);
-        setNext(json.info.next);
-      });
-  };
-
-  const getPrevPage = () => {
-    fetch(prev)
-      .then((response) => response.json())
-      .then((json) => {
-        setCharacters(json.results);
-        setPrev(json.info.prev);
-        setNext(json.info.next);
-      });
-  };
-
   return (
     <div className="container">
       <div className="row">
         <div className="col justify-content-center d-flex flex-wrap">
-          {characters.map(buildCard)}
-        </div>
-      </div>
-      <div className="row">
-        <div className="col justify-content-center d-flex flex-wrap p-5">
-          <button
-            disabled={prev === null ? true : false}
-            type="button"
-            className="btn btn-dark btn-lg mx-3"
-            onClick={getPrevPage}
-          >
-            Prev
-          </button>
-          <button
-            disabled={next === null ? true : false}
-            type="button"
-            className="btn btn-dark btn-lg mx-3"
-            onClick={getNextPage}
-          >
-            Next
-          </button>
+          {posts.map(buildCard)}
         </div>
       </div>
     </div>

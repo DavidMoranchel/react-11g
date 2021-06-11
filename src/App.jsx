@@ -4,9 +4,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 // Screens
 import Home from "./screens/Home";
+import AddPost from "./screens/AddPost";
 import Login from "./screens/Login";
-import Exercises from "./screens/Exercises";
-import Challenge from "./screens/Challenge";
 
 class App extends React.Component {
   render() {
@@ -17,11 +16,10 @@ class App extends React.Component {
             <Route exact path="/">
               <Home />
             </Route>
-            <Route exact path="/challenge">
-              <Challenge />
+            <Route exact path="/createPost">
+              <AddPost />
             </Route>
             <Route exact path="/login" component={Login} />
-            <Route exact path="/exercises" component={Exercises} />
           </Switch>
         </div>
       </Router>
