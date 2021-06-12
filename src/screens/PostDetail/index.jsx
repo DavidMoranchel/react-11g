@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { useParams } from "react-router";
+import { useParams, useHistory } from "react-router";
 
 import Header from "../../components/Header";
 import AppLoading from "../../components/AppLoading";
@@ -11,6 +11,7 @@ import { getPostDetail } from "../../services";
 export default function PostDetail() {
   const [data, setData] = useState({});
 
+  const history = useHistory();
   const { id } = useParams();
 
   useEffect(() => {
@@ -41,6 +42,14 @@ export default function PostDetail() {
             <p>
               Author: <strong>{data.author}</strong>
             </p>
+          </div>
+          <div className="col m-5">
+            <button
+              onClick={() => history.push(`/posts/${id}/update`)}
+              className="btn btn-warning"
+            >
+              Edit
+            </button>
           </div>
         </div>
       </div>

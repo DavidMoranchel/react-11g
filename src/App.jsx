@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./screens/Home";
 import PostDetail from "./screens/PostDetail";
 import AddPost from "./screens/AddPost";
+import UpdatePost from "./screens/UpdatePost";
 import Login from "./screens/Login";
 
 class App extends React.Component {
@@ -19,6 +20,9 @@ class App extends React.Component {
             </Route>
             <Route exact path="/posts/:id">
               <PostDetail />
+            </Route>
+            <Route exact path="/posts/:id/update">
+              <UpdatePost />
             </Route>
             <Route exact path="/createPost">
               <AddPost />

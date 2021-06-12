@@ -35,3 +35,15 @@ export const postPost = async (data) => {
   });
   return await response.json();
 };
+
+export const patchPost = async (id, data) => {
+  const url = postDetailURL(id);
+  const response = await fetch(url, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/JSON",
+    },
+    body: JSON.stringify(data),
+  });
+  return await response.json();
+};
