@@ -4,6 +4,7 @@ import { useHistory } from "react-router";
 
 import Header from "../../components/Header";
 import AppLoading from "../../components/AppLoading";
+import CustomInput from "../../components/CustomInput";
 
 // Services
 import { postPost } from "../../services";
@@ -41,48 +42,36 @@ export default function AddPost() {
           <div className="col">
             <form onSubmit={handleSubmit}>
               <div className="form-group col-md-6">
-                <label htmlFor="title">Title</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="title"
+                <CustomInput
+                  id="Title"
                   placeholder="Title"
                   value={title}
-                  onChange={(event) => setTitle(event.target.value)}
+                  callback={setTitle}
                 />
               </div>
               <div className="form-group col-md-6">
-                <label htmlFor="description">Description</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="description"
+                <CustomInput
+                  id="Description"
                   placeholder="Description"
                   value={description}
-                  onChange={(event) => setDescription(event.target.value)}
+                  callback={setDescription}
                 />
               </div>
               <div className="form-group col-md-6">
-                <label htmlFor="author">Author</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="author"
-                  placeholder="David ...."
+                <CustomInput
+                  id="Author"
+                  placeholder="Author"
                   value={author}
-                  onChange={(event) => setAuthor(event.target.value)}
+                  callback={setAuthor}
                 />
               </div>
 
               <div className="form-group col-md-6">
-                <label htmlFor="image">Image</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="image"
-                  placeholder="http://.../.jpg|.png|.jpeg"
+                <CustomInput
+                  id="Image"
+                  placeholder="Image"
                   value={image}
-                  onChange={(event) => setImage(event.target.value)}
+                  callback={setImage}
                 />
               </div>
 
