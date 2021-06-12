@@ -2,7 +2,7 @@
 const API_URL = "https://react-11g-default-rtdb.firebaseio.com/";
 
 // Endpoints
-const postURL = `${API_URL}/posts/.json`;
+const postURL = `${API_URL}/login/.json`;
 const postDetailURL = (id) => `${API_URL}/posts/${id}/.json`;
 
 // Requests
