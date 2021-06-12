@@ -11,10 +11,20 @@ export default function PostDetail() {
   const { id } = useParams();
 
   useEffect(() => {
-    fetch(`https://react-11g-default-rtdb.firebaseio.com/posts/${id}.json`)
-      .then((response) => response.json())
-      .then((json) => setData(json));
-  });
+    const getPostDetail = async () => {
+      try {
+        const response = await fetch(
+          `https://react-11g-default-rtdb.firebaseio.com/posts/${id}.json`
+        );
+        const json = await response.json();
+        setData(json);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getPostDetail();
+  }, []);
 
   return (
     <React.Fragment>
@@ -22,7 +32,7 @@ export default function PostDetail() {
       <div className="container">
         <div className="row">
           <div className="col m-5">
-            <h1>{data.title && data.title}</h1>
+            <h1>{data.title}</h1>
             <img
               alt={data.title && data.title}
               src={data.image && data.image}
