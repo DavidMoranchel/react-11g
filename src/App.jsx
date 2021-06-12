@@ -1,32 +1,33 @@
-import React from 'react';
+import React from "react";
 
-import AppLoading from './components/AppLoading';
-import Header from './components/Header';
-import SideNavLeft from './components/SideNavLeft';
-import SideNavRight from './components/SideNavRight';
-import Posts from './components/Posts';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+// Screens
+import Home from "./screens/Home";
+import PostDetail from "./screens/PostDetail";
+import AddPost from "./screens/AddPost";
+import Login from "./screens/Login";
 
 class App extends React.Component {
   render() {
     return (
-      <div className="app">
-        <Header />
-        
-        <div className="container">
-          <div className="row">
-            <SideNavLeft />
-
-            <main className="col-8">
-              <Posts />
-            </main>
-
-            <SideNavRight />
-          </div>
+      <Router>
+        <div className="app h-100">
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route exact path="/posts/:id">
+              <PostDetail />
+            </Route>
+            <Route exact path="/createPost">
+              <AddPost />
+            </Route>
+            <Route exact path="/login" component={Login} />
+          </Switch>
         </div>
-
-        <AppLoading />
-      </div>
-    )
+      </Router>
+    );
   }
 }
 
