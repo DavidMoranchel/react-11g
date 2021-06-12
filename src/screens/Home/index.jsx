@@ -6,16 +6,19 @@ import SideNavLeft from "../../components/SideNavLeft";
 import SideNavRight from "../../components/SideNavRight";
 import Posts from "../../components/Posts";
 
+// Services
+import { getPosts } from "../../services";
+
 export default function Home() {
   const [data, setData] = useState({});
 
   useEffect(() => {
-    fetch("https://react-11g-default-rtdb.firebaseio.com/posts.json")
-      .then((response) => response.json())
-      .then((json) => setData(json));
+    const request = async () => {
+      const json = await getPosts();
+      setData(json);
+    };
+    request();
   }, []);
-
-  console.log(data.results);
 
   return (
     <React.Fragment>

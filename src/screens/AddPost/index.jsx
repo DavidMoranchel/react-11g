@@ -5,6 +5,9 @@ import { useHistory } from "react-router";
 import Header from "../../components/Header";
 import AppLoading from "../../components/AppLoading";
 
+// Services
+import { postPost } from "../../services";
+
 export default function AddPost() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -17,24 +20,13 @@ export default function AddPost() {
     event.preventDefault();
 
     try {
-      const newPost = JSON.stringify({
+      const newPost = {
         title,
         description,
         image,
         author,
-      });
-      const response = await fetch(
-        "https://react-11g-default-rtdb.firebaseio.com/posts.json",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/JSON",
-          },
-          body: newPost,
-        }
-      );
-      await response.json();
-
+      };
+      await postPost(newPost);
       history.push("/");
     } catch (error) {
       console.log(error);

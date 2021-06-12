@@ -5,25 +5,21 @@ import { useParams } from "react-router";
 import Header from "../../components/Header";
 import AppLoading from "../../components/AppLoading";
 
+// Services
+import { getPostDetail } from "../../services";
+
 export default function PostDetail() {
   const [data, setData] = useState({});
 
   const { id } = useParams();
 
   useEffect(() => {
-    const getPostDetail = async () => {
-      try {
-        const response = await fetch(
-          `https://react-11g-default-rtdb.firebaseio.com/posts/${id}.json`
-        );
-        const json = await response.json();
-        setData(json);
-      } catch (error) {
-        console.log(error);
-      }
+    const request = async () => {
+      const json = await getPostDetail(id);
+      setData(json);
     };
 
-    getPostDetail();
+    request();
   }, []);
 
   return (
